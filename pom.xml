@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.vishalmysore</groupId>
+    <artifactId>cli-vs-mcp-advanced</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Advanced CLI Orchestration - Chaining, Piping and Workflow Patterns</name>
+    <description>
+        Demonstrates advanced CLI orchestration patterns including: CLI chaining (output of one feeds into another),
+        parallel execution, conditional branching, data transformation pipelines, and complex workflow orchestration.
+        Built on Tools4AI framework to showcase enterprise-grade CLI composition patterns as an alternative to MCP.
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
+        <lombok.version>1.18.30</lombok.version>
+        <tools4ai.version>1.1.9.9</tools4ai.version>
+    </properties>
+
+    <dependencies>
+        <!-- Tools4AI Framework -->
+        <dependency>
+            <groupId>io.github.vishalmysore</groupId>
+            <artifactId>tools4ai</artifactId>
+            <version>${tools4ai.version}</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jackson for JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
+        <!-- SLF4J Simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>18</source>
+                    <target>18</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>io.github.vishalmysore.clivsmcp.AdvancedCliOrchestrator</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

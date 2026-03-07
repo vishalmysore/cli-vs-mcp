@@ -1,0 +1,194 @@
+{
+    "description": "Advanced CLI Orchestration Skill Registry - Maps natural language intents to complex CLI workflows including chaining, pipelines, parallel execution, and conditional branching patterns.",
+    "skills": [
+        {
+            "id": "fetch_customers",
+            "name": "Fetch Customer Data",
+            "description": "Retrieve raw customer data from the data source. Returns customer records with ID, name, tier level (GOLD/SILVER/PLATINUM/BRONZE), spending amount, and region. Use this as the first stage in customer analysis pipelines.",
+            "command": "fetch customers",
+            "script": "fetch_customers.cmd",
+            "parameters": [],
+            "examples": [
+                "get customer data",
+                "fetch all customers",
+                "retrieve customer records",
+                "show customer information"
+            ],
+            "outputFormat": "TABLE",
+            "chainable": true,
+            "category": "DATA_SOURCE"
+        },
+        {
+            "id": "fetch_transactions",
+            "name": "Fetch Transaction Data",
+            "description": "Retrieve transaction records from the data source. Returns transactions with ID, customer ID, amount, status (COMPLETED/PENDING/FAILED), and date. Use for financial analysis and transaction processing workflows.",
+            "command": "fetch transactions",
+            "script": "fetch_transactions.cmd",
+            "parameters": [],
+            "examples": [
+                "get transaction data",
+                "fetch all transactions",
+                "retrieve transaction records",
+                "show transactions"
+            ],
+            "outputFormat": "TABLE",
+            "chainable": true,
+            "category": "DATA_SOURCE"
+        },
+        {
+            "id": "filter_by_field",
+            "name": "Filter Data by Field",
+            "description": "Filter incoming data stream by specific field criteria. Supports filtering by TIER (customer level), STATUS (transaction state), or REGION (geographic area). This processor CLI accepts piped input and outputs filtered results.",
+            "command": "filter by",
+            "script": "filter_by.cmd",
+            "parameters": [
+                {
+                    "name": "field",
+                    "type": "string",
+                    "description": "Field name to filter on (TIER, STATUS, REGION)"
+                },
+                {
+                    "name": "operator",
+                    "type": "string",
+                    "description": "Comparison operator (EQUALS, CONTAINS)"
+                },
+                {
+                    "name": "value",
+                    "type": "string",
+                    "description": "Value to filter for (e.g., GOLD, COMPLETED, WEST)"
+                }
+            ],
+            "examples": [
+                "filter by TIER equals GOLD",
+                "filter customers by region WEST",
+                "filter transactions by status COMPLETED"
+            ],
+            "outputFormat": "TABLE",
+            "chainable": true,
+            "category": "PROCESSOR"
+        },
+        {
+            "id": "count_by_field",
+            "name": "Count Records by Field",
+            "description": "Aggregate and count records grouped by a specific field. Supports counting by TIER (customer tiers) or STATUS (transaction statuses). This aggregator CLI accepts piped input and outputs count summaries.",
+            "command": "count by",
+            "script": "count_by.cmd",
+            "parameters": [
+                {
+                    "name": "fieldName",
+                    "type": "string",
+                    "description": "Field to group and count by (TIER or STATUS)"
+                }
+            ],
+            "examples": [
+                "count by tier",
+                "count by status",
+                "aggregate and count records"
+            ],
+            "outputFormat": "SUMMARY",
+            "chainable": true,
+            "category": "AGGREGATOR"
+        },
+        {
+            "id": "calculate_statistics",
+            "name": "Calculate Field Statistics",
+            "description": "Compute statistical measures (count, sum, average, min, max) for numeric fields. Supports AMOUNT (transaction amounts) and SPENDING (customer spending). This aggregator CLI processes piped input and outputs statistical analysis.",
+            "command": "calculate stats",
+            "script": "calculate_stats.cmd",
+            "parameters": [
+                {
+                    "name": "fieldName",
+                    "type": "string",
+                    "description": "Numeric field to analyze (AMOUNT or SPENDING)"
+                }
+            ],
+            "examples": [
+                "calculate statistics for amount",
+                "compute stats for spending",
+                "analyze transaction amounts"
+            ],
+            "outputFormat": "SUMMARY",
+            "chainable": true,
+            "category": "AGGREGATOR"
+        },
+        {
+            "id": "customer_tier_analysis",
+            "name": "Customer Tier Analysis Workflow",
+            "description": "Execute complete customer tier analysis workflow. This orchestrates a CLI chain: fetch_customers → filter_by TIER GOLD → count_by TIER. Demonstrates basic chaining pattern for customer segmentation analysis.",
+            "command": "analyze customer tiers",
+            "script": "workflow_customer_analysis.cmd",
+            "parameters": [],
+            "examples": [
+                "analyze customer tiers",
+                "run customer tier analysis",
+                "analyze customer distribution",
+                "show customer tier breakdown"
+            ],
+            "outputFormat": "REPORT",
+            "chainable": false,
+            "category": "WORKFLOW"
+        },
+        {
+            "id": "transaction_analytics",
+            "name": "Transaction Analytics Workflow",
+            "description": "Execute transaction analytics workflow with chaining. Orchestrates: fetch_transactions → filter_by STATUS COMPLETED → calculate_stats AMOUNT. Provides revenue analysis and transaction performance metrics.",
+            "command": "analyze transactions",
+            "script": "workflow_transaction_analytics.cmd",
+            "parameters": [],
+            "examples": [
+                "analyze transactions",
+                "run transaction analytics",
+                "analyze completed transactions",
+                "show transaction statistics"
+            ],
+            "outputFormat": "REPORT",
+            "chainable": false,
+            "category": "WORKFLOW"
+        },
+        {
+            "id": "multistage_pipeline",
+            "name": "Multi-Stage Data Pipeline",
+            "description": "Execute sophisticated multi-stage data pipeline with regional filtering and enrichment. Chain: fetch_customers → filter_by REGION → transform_data ENRICH → count_by TIER. Demonstrates complex data transformation workflows.",
+            "command": "run multi-stage pipeline",
+            "script": "workflow_multistage_pipeline.cmd",
+            "parameters": [
+                {
+                    "name": "region",
+                    "type": "string",
+                    "description": "Target region for filtering (WEST, EAST, NORTH, SOUTH)"
+                }
+            ],
+            "examples": [
+                "run multi-stage pipeline for WEST region",
+                "execute pipeline for EAST",
+                "run enrichment pipeline"
+            ],
+            "outputFormat": "REPORT",
+            "chainable": false,
+            "category": "WORKFLOW"
+        },
+        {
+            "id": "parallel_processing",
+            "name": "Parallel Data Processing",
+            "description": "Execute multiple data sources in parallel for performance optimization. Concurrently fetches customers, transactions, and metrics, then processes each stream independently. Demonstrates parallel execution pattern.",
+            "command": "run parallel processing",
+            "script": "workflow_parallel_processing.cmd",
+            "parameters": [],
+            "examples": [
+                "run parallel processing",
+                "execute parallel workflows",
+                "process data in parallel",
+                "run concurrent data fetch"
+            ],
+            "outputFormat": "REPORT",
+            "chainable": false,
+            "category": "WORKFLOW"
+        }
+    ],
+    "patterns": {
+        "chaining": "Output of one CLI becomes input to next CLI (e.g., fetch | filter | count)",
+        "pipeline": "Multi-stage transformation workflow (extract → transform → aggregate)",
+        "parallel": "Concurrent execution of independent CLI operations for performance",
+        "conditional": "Dynamic workflow branching based on CLI output analysis"
+    }
+}

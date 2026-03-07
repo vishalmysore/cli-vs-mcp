@@ -1,0 +1,67 @@
+groups:
+  - name: Data Source Actions
+    description: CLI commands that generate raw data from various sources (customers, transactions, metrics)
+    scripts:
+      - scriptName: "C:/work/cli-vs-mcp/cli/datasource/fetch_customers.cmd"
+        actionName: fetchCustomers
+        parameters: ""
+        description: Fetch raw customer data including ID, name, tier, spending, and region information
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/datasource/fetch_transactions.cmd"
+        actionName: fetchTransactions
+        parameters: ""
+        description: Fetch transaction records with transaction ID, customer ID, amount, status, and date
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/datasource/fetch_metrics.cmd"
+        actionName: fetchMetrics
+        parameters: ""
+        description: Fetch system performance metrics including CPU, memory, disk IO, network latency
+
+  - name: Data Processor Actions
+    description: CLI commands that transform, filter, and enrich data streams
+    scripts:
+      - scriptName: "C:/work/cli-vs-mcp/cli/processors/filter_by.cmd"
+        actionName: filterBy
+        parameters: field,operator,value
+        description: Filter data stream by specified field criteria (e.g., TIER=GOLD, STATUS=COMPLETED, REGION=WEST)
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/processors/transform_data.cmd"
+        actionName: transformData
+        parameters: transformationType
+        description: Transform and enrich data with computed fields (ENRICH adds scores, UPPERCASE converts text)
+
+  - name: Data Aggregator Actions
+    description: CLI commands that aggregate, count, and calculate statistics on data streams
+    scripts:
+      - scriptName: "C:/work/cli-vs-mcp/cli/aggregators/count_by.cmd"
+        actionName: countBy
+        parameters: fieldName
+        description: Count and group records by a specific field (TIER, STATUS) and display aggregated counts
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/aggregators/calculate_stats.cmd"
+        actionName: calculateStats
+        parameters: fieldName
+        description: Calculate statistical measures (sum, average, min, max) for numeric fields like AMOUNT or SPENDING
+
+  - name: Workflow Orchestration Actions
+    description: Pre-built multi-stage CLI workflows demonstrating chaining and pipeline patterns
+    scripts:
+      - scriptName: "C:/work/cli-vs-mcp/cli/workflow_customer_analysis.cmd"
+        actionName: analyzeCustomerTiers
+        parameters: ""
+        description: Execute customer tier analysis workflow - chains fetch, filter, and count operations to analyze customer distribution by tier
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/workflow_transaction_analytics.cmd"
+        actionName: analyzeTransactions
+        parameters: ""
+        description: Execute transaction analytics workflow - fetches transactions, filters completed ones, and calculates revenue statistics
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/workflow_multistage_pipeline.cmd"
+        actionName: runMultiStagePipeline
+        parameters: region
+        description: Execute multi-stage data pipeline with regional filtering, enrichment, and aggregation (default region is WEST)
+
+      - scriptName: "C:/work/cli-vs-mcp/cli/workflow_parallel_processing.cmd"
+        actionName: runParallelProcessing
+        parameters: ""
+        description: Execute parallel data processing across multiple sources concurrently for performance optimization
