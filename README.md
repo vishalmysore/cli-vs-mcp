@@ -100,25 +100,6 @@ mvn exec:java
 cmd /c cli\demo_showcase.cmd
 ```
 
-### Sample Interactions
-
-```
-🤖 Agent > demo
-[Executes all 4 patterns in sequence with output]
-
-🤖 Agent > Analyze customer tiers for GOLD customers
-[AGENT] 🧠 Analyzing intent...
-[AGENT] 🔗 Executing: workflow_customer_analysis.cmd
-[Displays filtered and aggregated results]
-
-🤖 Agent > Run parallel data processing
-[AGENT] Executing 3 data sources concurrently...
-[Shows parallel execution speedup]
-
-🤖 Agent > exit
-[Orchestrator shuts down]
-```
-
 ## 📁 Project Structure
 
 ```
@@ -186,6 +167,8 @@ cli-vs-mcp/
 
 ## 📊 Performance Metrics
 
+**Disclaimer:** These measurements are illustrative only, comparing local CLI scripts with mock data against localhost HTTP. Not measured against production MCP implementations. The architectural advantage is **zero server overhead** (no persistent processes, no connection management), not raw speed.
+
 ### Benchmark Results (Windows 11, Intel i7, 16GB RAM)
 
 | Workflow | Sequential | Parallel | Speedup |
@@ -212,6 +195,8 @@ cli-vs-mcp/
 ✅ Zero infrastructure setup is desired  
 ✅ Debugging with intermediate files is helpful
 
+> **Production Note:** This demo uses Windows Batch (.cmd) for simplicity, but PowerShell (.ps1) provides superior piping, object handling, and error management for production CLI orchestration.
+
 ### Migrate to MCP When:
 ❌ Tools span multiple machines  
 ❌ Long-running stateful services are required  
@@ -227,26 +212,6 @@ Local Layer (CLI):      Remote Layer (MCP):
 ├── File I/O           └── Streaming services
 └── Fast transforms
 ```
-
-## 🎓 Key Learnings
-
-### What Worked Well
-- ✨ **Simplicity**: Zero-config setup, just scripts and paths
-- 🐛 **Debuggability**: Temp files make troubleshooting trivial
-- 🌍 **Polyglot**: Mixed languages (Python/Java/Batch) seamlessly
-- ⚡ **Performance**: Sub-50ms latencies for most workflows
-
-> **Production Tip:** While this demo uses Windows Batch (.cmd), PowerShell scripts (.ps1) provide superior piping, object handling, and error management for production deployments.
-
-### Challenges & Solutions
-| Challenge | Solution |
-|-----------|----------|
-| Windows Batch pipe parsing | Use temp files as intermediate storage (or PowerShell for better object piping) |
-| Error propagation | Explicit `Process.exitValue()` checking after each CLI to prevent silent failures |
-| Output standardization | Pipe-delimited format (consider JSONL for nested data structures) |
-| Concurrency control | Unique temp file names per workflow |
-
-> **Advanced Note:** For production Windows deployments, prefer **PowerShell** over cmd.exe - it handles object piping natively and avoids the batch file parsing issues we encountered. For LLM-ready outputs with nested data, **JSONL (JSON Lines)** is the industry standard that CLI tools should target.
 
 ## 📚 Configuration Files
 
@@ -316,7 +281,6 @@ mvn exec:java
 - **Technical Article**: See [`ADVANCED_CLI_ORCHESTRATION_ARTICLE.md`](./ADVANCED_CLI_ORCHESTRATION_ARTICLE.md) for deep-dive analysis
 - **Tools4AI Framework**: [github.com/vishalmysore/Tools4AI](https://github.com/vishalmysore/Tools4AI)
 - **Basic CLI Demo**: See `../clitoolcalling` for foundational patterns
-- **Unix Philosophy**: McIlroy (1978) - "Write programs that do one thing well"
 
 ## 🤝 Contributing
 
@@ -334,17 +298,6 @@ Contributions welcome! Areas for enhancement:
 
 MIT License - See [LICENSE](../LICENSE) file
 
-## 🎯 Key Takeaways
-
-1. **CLI composition achieves 3-10x lower latency** than HTTP-based orchestration (for local workflows)
-2. **Zero infrastructure** - no containers, no services, no configuration
-3. **Polyglot by nature** - any language that writes to stdout participates
-4. **Perfect for edge computing** - minimal resource footprint
-5. **Complementary to MCP** - use CLI locally, MCP for distributed services
-6. **Critical for production**: Always check `Process.exitValue() != 0` to prevent silent failures in CLI chains
-
 ---
-
-**"The best code is no code. The best infrastructure is no infrastructure."**
 
 **Built with** [Tools4AI](https://github.com/vishalmysore/Tools4AI) **• March 2026 • Advanced CLI Architecture Demonstration**
